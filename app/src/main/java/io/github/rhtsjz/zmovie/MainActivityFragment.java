@@ -1,14 +1,21 @@
 package io.github.rhtsjz.zmovie;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +26,7 @@ import java.util.List;
 public class MainActivityFragment extends Fragment {
 
     ArrayAdapter<String> mForecastAdapter;
+    ArrayAdapter mImageAdapter;
 
     public MainActivityFragment() {
     }
@@ -54,6 +62,9 @@ public class MainActivityFragment extends Fragment {
 
         TextView textView = (TextView) rootView.findViewById(R.id.hello_world_textview);
         textView.setText("你好世界！");
+
+        ImageView imageView = (ImageView)rootView.findViewById(R.id.hello_world_imageview);
+        Picasso.with(getActivity()).load(R.mipmap.ic_launcher).into(imageView);
 
         // Get a reference to the ListView, and attach this adapter to it.
         ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
