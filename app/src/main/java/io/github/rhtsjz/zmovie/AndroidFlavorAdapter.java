@@ -26,7 +26,7 @@ public class AndroidFlavorAdapter extends ArrayAdapter<AndroidFlavor> {
 
         if(convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.flavor_item,
+                    R.layout.grid_item_flavor,
                     parent,
                     false);
         }

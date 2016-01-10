@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -15,6 +17,8 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
     private AndroidFlavorAdapter flavorAdapter;
+
+    private ArrayList<AndroidFlavor> flavorList;
 
     AndroidFlavor[] androidFlavors = {
             new AndroidFlavor("Cupcake", "1.5", R.drawable.abc_ab_share_pack_mtrl_alpha),
@@ -33,15 +37,42 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(savedInstanceState == null || !savedInstanceState.containsKey("flavors")){
+            flavorList = new ArrayList<>(Arrays.asList(androidFlavors));
+        }else {
+            flavorList = savedInstanceState.getParcelableArrayList("flavors");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("flavors", flavorList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        flavorAdapter = new AndroidFlavorAdapter(getActivity(), Arrays.asList(androidFlavors));
+        flavorAdapter = new AndroidFlavorAdapter(getActivity(), flavorList);
 
-        GridView gridView = (GridView) rootView.findViewById(R.id.flavor_grid);
-        gridView.setAdapter(flavorAdapter);
+        ListView listView = (ListView)rootView.findViewById(R.id.listview_flavor);
+        listView.setAdapter(flavorAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AndroidFlavor flavor = flavorAdapter.getItem(i);
+                flavor.versionName = ":)";
+                flavorAdapter.notifyDataSetChanged();
+            }
+        });
+
+
         return rootView;
     }
 }

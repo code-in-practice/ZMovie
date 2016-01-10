@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivityFragment">
 
     <GridView
-        android:id="@+id/flavor_grid"
+        android:id="@+id/gridview_flavor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnWidth="150dp"
@@ -14,5 +14,11 @@
         android:verticalSpacing="0dp"
         android:stretchMode="columnWidth">
     </GridView>
+
+    <ListView
+        android:id="@+id/listview_flavor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 
 </RelativeLayout>
