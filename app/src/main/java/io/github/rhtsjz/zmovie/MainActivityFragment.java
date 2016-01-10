@@ -1,32 +1,33 @@
 package io.github.rhtsjz.zmovie;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
+import android.widget.GridView;
 
-import com.squareup.picasso.Picasso;
-
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
+    private AndroidFlavorAdapter flavorAdapter;
 
-    ArrayAdapter<String> mForecastAdapter;
-    ArrayAdapter mImageAdapter;
+    AndroidFlavor[] androidFlavors = {
+            new AndroidFlavor("Cupcake", "1.5", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Donut", "1.6", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Eclair", "2.0-2.1", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Froyo", "2.2-2.2.3", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("GingerBread", "2.3-2.3.7", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Honeycomb", "3.0-3.2.6", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Ice Cream Sandwich", "4.0-4.0.4", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Jelly Bean", "4.1-4.3.1", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("KitKat", "4.4-4.4.4", R.drawable.abc_ab_share_pack_mtrl_alpha),
+            new AndroidFlavor("Lollipop", "5.0-5.1.1", R.drawable.abc_ab_share_pack_mtrl_alpha)
+    };
 
     public MainActivityFragment() {
     }
@@ -34,42 +35,13 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_main, container, false);
-        // Create some dummy data for the ListView.  Here's a sample weekly forecast
-        String[] data = {
-                "Mon 6/23 - Sunny - 31/17",
-                "Tue 6/24 - Foggy - 21/8",
-                "Wed 6/25 - Cloudy - 22/17",
-                "Thu 6/26 - Rainy - 18/11",
-                "Fri 6/27 - Foggy - 21/10",
-                "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-                "Sun 6/29 - Sunny - 20/7"
-        };
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
-
-
-        // Now that we have some dummy forecast data, create an ArrayAdapter.
-        // The ArrayAdapter will take data from a source (like our dummy forecast) and
-        // use it to populate the ListView it's attached to.
-        mForecastAdapter =
-                new ArrayAdapter<String>(
-                        getActivity(), // The current context (this activity)
-                        R.layout.list_item_forecast, // The name of the layout ID.
-                        R.id.list_item_forecast_textview, // The ID of the textview to populate.
-                        weekForecast);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        TextView textView = (TextView) rootView.findViewById(R.id.hello_world_textview);
-        textView.setText("你好世界！");
+        flavorAdapter = new AndroidFlavorAdapter(getActivity(), Arrays.asList(androidFlavors));
 
-        ImageView imageView = (ImageView)rootView.findViewById(R.id.hello_world_imageview);
-        Picasso.with(getActivity()).load(R.mipmap.ic_launcher).into(imageView);
-
-        // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
-        listView.setAdapter(mForecastAdapter);
-
+        GridView gridView = (GridView) rootView.findViewById(R.id.flavor_grid);
+        gridView.setAdapter(flavorAdapter);
         return rootView;
     }
 }
