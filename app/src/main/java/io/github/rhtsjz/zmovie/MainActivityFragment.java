@@ -21,16 +21,16 @@ public class MainActivityFragment extends Fragment {
     private ArrayList<AndroidFlavor> flavorList;
 
     AndroidFlavor[] androidFlavors = {
-            new AndroidFlavor("Cupcake", "1.5", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Donut", "1.6", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Eclair", "2.0-2.1", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Froyo", "2.2-2.2.3", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("GingerBread", "2.3-2.3.7", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Honeycomb", "3.0-3.2.6", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Ice Cream Sandwich", "4.0-4.0.4", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Jelly Bean", "4.1-4.3.1", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("KitKat", "4.4-4.4.4", R.drawable.abc_ab_share_pack_mtrl_alpha),
-            new AndroidFlavor("Lollipop", "5.0-5.1.1", R.drawable.abc_ab_share_pack_mtrl_alpha)
+            new AndroidFlavor("Cupcake", "1.5", R.mipmap.ic_launcher),
+            new AndroidFlavor("Donut", "1.6", R.mipmap.ic_launcher),
+            new AndroidFlavor("Eclair", "2.0-2.1", R.mipmap.ic_launcher),
+            new AndroidFlavor("Froyo", "2.2-2.2.3", R.mipmap.ic_launcher),
+            new AndroidFlavor("GingerBread", "2.3-2.3.7", R.mipmap.ic_launcher),
+            new AndroidFlavor("Honeycomb", "3.0-3.2.6", R.mipmap.ic_launcher),
+            new AndroidFlavor("Ice Cream Sandwich", "4.0-4.0.4", R.mipmap.ic_launcher),
+            new AndroidFlavor("Jelly Bean", "4.1-4.3.1", R.mipmap.ic_launcher),
+            new AndroidFlavor("KitKat", "4.4-4.4.4", R.mipmap.ic_launcher),
+            new AndroidFlavor("Lollipop", "5.0-5.1.1", R.mipmap.ic_launcher)
     };
 
     public MainActivityFragment() {
