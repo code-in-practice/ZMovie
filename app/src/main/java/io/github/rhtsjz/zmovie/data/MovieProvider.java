@@ -47,7 +47,7 @@ public class MovieProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new MovieDbHelper(getContext(), "movie.db", null, 1);
+        mOpenHelper = new MovieDbHelper(getContext(), MovieDbHelper.DATABASE_NAME, null, 1);
         return true;
     }
 
