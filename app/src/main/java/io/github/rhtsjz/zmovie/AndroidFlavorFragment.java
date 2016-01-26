@@ -15,7 +15,7 @@ import java.util.Arrays;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class AndroidFlavorFragment extends Fragment {
     private AndroidFlavorAdapter flavorAdapter;
 
     private ArrayList<AndroidFlavor> flavorList;
@@ -33,7 +33,7 @@ public class MainActivityFragment extends Fragment {
             new AndroidFlavor("Lollipop", "5.0-5.1.1", R.mipmap.ic_launcher)
     };
 
-    public MainActivityFragment() {
+    public AndroidFlavorFragment() {
     }
 
     @Override
@@ -56,7 +56,7 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_androidflavor, container, false);
 
         flavorAdapter = new AndroidFlavorAdapter(getActivity(), flavorList);
 
