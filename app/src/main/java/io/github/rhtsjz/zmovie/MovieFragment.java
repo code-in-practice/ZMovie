@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import io.github.rhtsjz.zmovie.data.MovieContract;
@@ -28,12 +29,14 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     private static final String[] MOVIE_COLUMNS = {
             MovieContract.MovieEntry._ID,
             MovieContract.MovieEntry.COLUMN_TITLE,
-            MovieContract.MovieEntry.COLUMN_BACKDROP_PATH
+            MovieContract.MovieEntry.COLUMN_BACKDROP_PATH,
+            MovieContract.MovieEntry.COLUMN_POSTER_PATH
     };
 
     static final int COL_MOVIE_ID = 0;
     static final int COL_MOVIE_TITLE = 1;
     static final int COL_BACKDROP_PATH = 2;
+    static final int COL_POSTER_PATH = 3;
 
 
 
@@ -71,11 +74,15 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         movieAdapter = new MovieAdapter(getActivity(), null, 0);
-        View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
 
+//        View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_movie);
-        listView.setAdapter(movieAdapter);
+//        ListView listView = (ListView) rootView.findViewById(R.id.listview_movie);
+//        listView.setAdapter(movieAdapter);
+        // Get a reference to the GridView, and attach this adapter to it.
+        View rootView = inflater.inflate(R.layout.fragment_movie_grid, container, false);
+        GridView gridView = (GridView) rootView.findViewById(R.id.gridview_movie);
+        gridView.setAdapter(movieAdapter);
 
         return rootView;
     }
@@ -93,7 +100,7 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String sortOrder = MovieContract.MovieEntry._ID + " DESC";
+        String sortOrder = MovieContract.MovieEntry._ID + " ASC";
         Uri uri = MovieContract.MovieEntry.CONTENT_URI;
 
         return new CursorLoader(getActivity(),

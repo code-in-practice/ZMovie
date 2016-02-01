@@ -54,7 +54,7 @@ public class FetchMovieTask extends AsyncTask<String, Void, Void> {
         Vector<ContentValues> contentValuesVector = new Vector<>(movieArray.length());
         for (int i=0; i<movieArray.length(); i++) {
             JSONObject movieObject = movieArray.getJSONObject(i);
-            String poster_path = movieObject.getString(TITLE);
+            String poster_path = movieObject.getString(POSTER_PATH);
             String overview = movieObject.getString(OVERVIEW);
             String release_date = movieObject.getString(RELEASE_DATE);
             String original_title = movieObject.getString(ORIGINAL_TITLE);
