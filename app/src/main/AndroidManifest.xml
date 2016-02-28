@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MovieDetailActivity"
+            android:label="@string/movie_detail"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="io.github.rhtsjz.zmovie.MainActivity" />
+
+        </activity>
         <provider
             android:authorities="io.github.rhtsjz.zmovie"
             android:name=".data.MovieProvider" />

@@ -1,5 +1,6 @@
 package io.github.rhtsjz.zmovie;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,14 +9,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import io.github.rhtsjz.zmovie.data.MovieContract;
 
@@ -24,19 +26,23 @@ import io.github.rhtsjz.zmovie.data.MovieContract;
  */
 public class MovieFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
+    private static final String LOG_TAG = MovieFragment.class.getSimpleName();
+
     private static final int MOVIE_LOADER = 0;
 
     private static final String[] MOVIE_COLUMNS = {
             MovieContract.MovieEntry._ID,
+            MovieContract.MovieEntry.COLUMN_ID,
             MovieContract.MovieEntry.COLUMN_TITLE,
             MovieContract.MovieEntry.COLUMN_BACKDROP_PATH,
             MovieContract.MovieEntry.COLUMN_POSTER_PATH
     };
 
-    static final int COL_MOVIE_ID = 0;
-    static final int COL_MOVIE_TITLE = 1;
-    static final int COL_BACKDROP_PATH = 2;
-    static final int COL_POSTER_PATH = 3;
+    static final int COL_ID = 0;
+    static final int COL_MOVIE_ID = 1;
+    static final int COL_TITLE = 2;
+    static final int COL_BACKDROP_PATH = 3;
+    static final int COL_POSTER_PATH = 4;
 
 
 
@@ -54,7 +60,7 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.moviefragment, menu);
+        inflater.inflate(R.menu.menu_moviefragment, menu);
     }
 
     @Override
@@ -83,6 +89,26 @@ public class MovieFragment extends Fragment implements LoaderManager.LoaderCallb
         View rootView = inflater.inflate(R.layout.fragment_movie_grid, container, false);
         GridView gridView = (GridView) rootView.findViewById(R.id.gridview_movie);
         gridView.setAdapter(movieAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // CursorAdapter returns a cursor at the correct position for getItem(), or null
+                // if it cannot seek to that position.
+                Cursor cursor = (Cursor) parent.getItemAtPosition(position);
+                if(cursor != null) {
+                    int _id = cursor.getInt(COL_ID);
+                    int movie_id = cursor.getInt(COL_MOVIE_ID);
+                    String title = cursor.getString(COL_TITLE);
+                    Log.v(LOG_TAG, "In onCreateView >>> onItemClick >>> _id: " + _id);
+                    Log.v(LOG_TAG, "In onCreateView >>> onItemClick >>> movie_id: " + movie_id);
+                    Log.v(LOG_TAG, "In onCreateView >>> onItemClick >>> title: " + title);
+                    Intent intent = new Intent(getActivity(), MovieDetailActivity.class)
+                            .setData(MovieContract.MovieEntry.buildMovieUri(movie_id));
+                    startActivity(intent);
+                }
+            }
+        });
 
         return rootView;
     }

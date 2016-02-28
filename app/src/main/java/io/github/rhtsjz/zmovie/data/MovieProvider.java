@@ -14,11 +14,14 @@ import android.net.Uri;
  */
 public class MovieProvider extends ContentProvider {
 
+    private static final String LOG_TAG = MovieProvider.class.getSimpleName();
+
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private MovieDbHelper mOpenHelper;
 
 
     static final int MOVIE = 100;
+    static final int MOVIE_ITEM = 101;
 
     private static final SQLiteQueryBuilder queryBuilder;
 
@@ -29,6 +32,13 @@ public class MovieProvider extends ContentProvider {
                 MovieContract.MovieEntry.TABLE_NAME
         );
     }
+
+    private static final String sMovieIteamSelection =
+            MovieContract.MovieEntry.TABLE_NAME +
+                    "." + MovieContract.MovieEntry.COLUMN_ID + " = ? ";
+    private static final String sMovieItemGet =
+            MovieContract.MovieEntry.TABLE_NAME +
+                    "." + MovieContract.MovieEntry._ID + " = ? ";
 
     static UriMatcher buildUriMatcher(){
         // I know what you're thinking.  Why create a UriMatcher when you can use regular
@@ -41,6 +51,8 @@ public class MovieProvider extends ContentProvider {
         final String authority = MovieContract.CONTENT_AUTHORITY;
 
         matcher.addURI(authority, MovieContract.PATH_MOVIE, MOVIE);
+
+        matcher.addURI(authority, MovieContract.PATH_MOVIE + "/#", MOVIE_ITEM);
         return matcher;
     }
 
@@ -69,6 +81,21 @@ public class MovieProvider extends ContentProvider {
                         sortOrder
                 );
                 break;
+            case MOVIE_ITEM:
+                String itemSelection = sMovieIteamSelection;
+                int movie_id = MovieContract.MovieEntry.getMovieIdFromUri(uri);
+                String[] itemSelectionArgs = new String[]{Integer.toString(movie_id)};
+
+                retCursor = mOpenHelper.getReadableDatabase().query(
+                        MovieContract.MovieEntry.TABLE_NAME,
+                        projection,
+                        itemSelection,
+                        itemSelectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -84,6 +111,8 @@ public class MovieProvider extends ContentProvider {
         switch (match){
             case MOVIE:
                 return MovieContract.MovieEntry.CONTENT_TYPE;
+            case MOVIE_ITEM:
+                return MovieContract.MovieEntry.CONTENT_ITEM_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }

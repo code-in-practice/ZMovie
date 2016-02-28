@@ -39,7 +39,7 @@ public class MovieAdapter extends CursorAdapter{
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         String poster_path = cursor.getString(MovieFragment.COL_POSTER_PATH);
-        String title = cursor.getString(MovieFragment.COL_MOVIE_TITLE);
+        String title = cursor.getString(MovieFragment.COL_TITLE);
         String url_base = "http://image.tmdb.org/t/p/w500";
         String poster_url = poster_path;
         if(poster_url.startsWith("/")){
